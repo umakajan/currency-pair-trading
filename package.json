@@ -4,5 +4,10 @@
   "description": "complete a market trade between US Dollars and Bitcoin",
   "main": "index.js",
   "author": "<umakajan@umakajan.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
 }
