@@ -1,0 +1,8 @@
+{
+  "name": "curreny-pair-trading",
+  "version": "1.0.0",
+  "description": "complete a market trade between US Dollars and Bitcoin",
+  "main": "index.js",
+  "author": "<umakajan@umakajan.com>",
+  "license": "MIT"
+}
