@@ -6,8 +6,8 @@ const app = express();
 const PORT = 4000;
 const API_ENDPOINT = 'https://api.bitfinex.com/v1/pubticker';
 
-app.get('/ticker', (req, res) => {
-  fetch(`${API_ENDPOINT}/btcusd`)
+app.get('/:symbol', (req, res) => {
+  fetch(`${API_ENDPOINT}${req.url}`)
     .then(response => response.json())
     .then(response => res.send(response))
 })

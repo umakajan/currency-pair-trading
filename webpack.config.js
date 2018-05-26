@@ -25,6 +25,13 @@ module.exports = {
   devServer: {
     headers: {
       'Access-Control-Allow-Origin': '*'
+    },
+    disableHostCheck: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:4000",
+        pathRewrite: {"^/api" : ""}
+      }
     }
   }
 };
