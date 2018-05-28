@@ -19,11 +19,12 @@ class App extends React.Component {
       lastPrice: {
         [SYMBOL]: null,
       },
-      amount: 0,
+      amount: '',
       quote: 0,
     };
 
     this.handleTradeInput = this.handleTradeInput.bind(this);
+    this.handleTradeButton = this.handleTradeButton.bind(this);
   }
 
   componentWillMount() {
@@ -38,7 +39,7 @@ class App extends React.Component {
   getQuote(amount) {
     const { lastPrice } = this.state;
 
-    return lastPrice[config.symbol] && lastPrice[config.symbol] * amount;
+    return lastPrice[config.symbol] && amount/lastPrice[config.symbol];
   }
 
   
@@ -68,7 +69,25 @@ class App extends React.Component {
 
   }
 
+  /**
+   * Execute the trade and update with the new currency and BTC account balance
+   */
+  handleTradeButton() {
+    const { accountBalance: { USD, BTC }, amount } = this.state;
 
+    const calculatedAmount = this.getQuote(amount);
+
+    if (USD >= amount) {
+      this.setState({
+        accountBalance: {
+          USD: USD - amount,
+          BTC: BTC + calculatedAmount,
+        },
+        amount: '',
+        quote: '',
+      });
+    }
+  }
 
   render() {
     const { accountBalance: { USD, BTC }, quote, amount } = this.state;
