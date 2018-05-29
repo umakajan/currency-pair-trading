@@ -20,7 +20,7 @@ class App extends React.Component {
         [SYMBOL]: null,
       },
       amount: '',
-      quote: 0,
+      quote: '',
     };
 
     this.handleTradeInput = this.handleTradeInput.bind(this);
@@ -39,10 +39,10 @@ class App extends React.Component {
   getQuote(amount) {
     const { lastPrice } = this.state;
 
-    return lastPrice[config.symbol] && amount/lastPrice[config.symbol];
+    return lastPrice[config.symbol] && amount / lastPrice[config.symbol];
   }
 
-  
+
   /**
    * fetchLastPrice will fetch the market price of Bitcoin of provided symbol
    * @param {String} symbol 
@@ -61,10 +61,10 @@ class App extends React.Component {
 
   handleTradeInput(event) {
     // TODO fetch lastest price
-    
+
     this.setState({
       amount: event.target.value,
-      quote: this.getQuote(event.target.value),
+      quote: event.target.value ? this.getQuote(event.target.value).toFixed(8) : '',
     });
 
   }
@@ -93,37 +93,50 @@ class App extends React.Component {
     const { accountBalance: { USD, BTC }, quote, amount } = this.state;
 
     return (
-      <div>
-        <p>Currency Pair Trading</p>
-        <p>Account Balance</p>
-        <div>
-          <span>USD </span>
-          <span>{USD}</span>
-        </div>
-        <div>
-          <span>BTC </span>
-          <span>{BTC}</span>
-        </div>
-
-        <h4>Trade</h4>
-        <div>
-          <input value="USD" readOnly disabled />
-          <input
-            value={amount}
-            placeholder="Enter your amount"
-            onChange={this.handleTradeInput}
-          />
-        </div>
-        
-        <h4>For</h4>
-        <div>
-          <input value="BTC" readOnly disabled />
-          <input value={quote} placeholder="Display Quote" />
+      <div className="tradeWrapper">
+        <div className="accountBalance">
+          <p>Account Balance</p>
+          <div className="accountBalance-currency">
+            <label htmlFor="currency-USD">USD
+              <span id="currency-USD">{USD}</span>
+            </label>
+          </div>
+          <div className="accountBalance-currency">
+            <label htmlFor="currency-BTC">BTC
+              <span id="currency-BTC">{BTC.toFixed(8)}</span>
+            </label>
+          </div>
         </div>
 
-        <button onClick={this.handleTradeButton}>Trade</button>
+        <div className="tradeForm">
+          <div>
+            <div>Trade</div>
+            <input className="tradeForm-currency" value="USD" readOnly disabled />
+            <input
+              id="amount"
+              value={amount}
+              placeholder="Enter your amount"
+              onChange={this.handleTradeInput}
+            />
+
+            <div>For</div>
+            <input className="tradeForm-currency" value="BTC" readOnly disabled />
+            <input
+              id="quote"
+              value={quote || ''}
+              placeholder="Display Quote"
+              onChange={this.handleTradeInput}
+            />
+          </div>
+
+          <button
+            className="tradeForm-tradeButton"
+            onClick={this.handleTradeButton}
+          >
+            Trade
+          </button>
+        </div>
       </div>
-
     )
   }
 }
