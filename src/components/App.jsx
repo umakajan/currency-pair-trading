@@ -1,23 +1,14 @@
 import React from 'react';
 
-const SYMBOL = 'btcusd'
-const config = {
-  accountBalance: {
-    USD: 156.12,
-    BTC: 0,
-  },
-  symbol: SYMBOL,
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     // Your account is pre-funded with $156.12 USD. User can trade with any amount
     this.state = {
-      accountBalance: config.accountBalance,
-      lastPrice: {
-        [SYMBOL]: null,
+      accountBalance: {
+        USD: 156.12,
+        BTC: 0,
       },
       amount: '',
       quote: '',
@@ -28,7 +19,9 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.fetchLastPrice();
+    const { fetchLastPrice, symbol } = this.props;
+    
+    fetchLastPrice(symbol);
   }
 
   /**
@@ -37,26 +30,9 @@ class App extends React.Component {
    * @returns {Number}
    */
   getQuote(amount) {
-    const { lastPrice } = this.state;
+    const { symbol, lastPrice } = this.props;
 
-    return lastPrice[config.symbol] && amount / lastPrice[config.symbol];
-  }
-
-
-  /**
-   * fetchLastPrice will fetch the market price of Bitcoin of provided symbol
-   * @param {String} symbol 
-   */
-  fetchLastPrice() {
-    fetch(`/api/${config.symbol}`)
-      .then(response => response.json())
-      .then(({ last_price: lastPrice }) =>
-        this.setState({
-          lastPrice: {
-            [config.symbol]: lastPrice,
-          }
-        })
-      )
+    return lastPrice && amount / lastPrice;
   }
 
   handleTradeInput(event) {
