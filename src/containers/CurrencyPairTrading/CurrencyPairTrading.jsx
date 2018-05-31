@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import AccountBalance from './components/AccountBalance';
+import TradeForm from './components/TradeForm';
+
 class CurrencyPairTrading extends React.Component {
   constructor(props) {
     super(props);
@@ -67,52 +70,17 @@ class CurrencyPairTrading extends React.Component {
   }
 
   render() {
-    const { accountBalance: { USD, BTC }, quote, amount } = this.state;
+    const { accountBalance, quote, amount } = this.state;
 
     return (
       <div className="tradeWrapper">
-        <div className="accountBalance">
-          <p>Account Balance</p>
-          <div className="accountBalance-currency">
-            <label htmlFor="currency-USD">USD
-              <span id="currency-USD">{USD}</span>
-            </label>
-          </div>
-          <div className="accountBalance-currency">
-            <label htmlFor="currency-BTC">BTC
-              <span id="currency-BTC">{BTC.toFixed(8)}</span>
-            </label>
-          </div>
-        </div>
-
-        <div className="tradeForm">
-          <div>
-            <div>Trade</div>
-            <input className="tradeForm-currency" value="USD" readOnly disabled />
-            <input
-              id="amount"
-              value={amount}
-              placeholder="Enter your amount"
-              onChange={this.handleTradeInput}
-            />
-
-            <div>For</div>
-            <input className="tradeForm-currency" value="BTC" readOnly disabled />
-            <input
-              id="quote"
-              value={quote || ''}
-              placeholder="Display Quote"
-              onChange={this.handleTradeInput}
-            />
-          </div>
-
-          <button
-            className="tradeForm-tradeButton"
-            onClick={this.handleTradeButton}
-          >
-            Trade
-          </button>
-        </div>
+        <AccountBalance {...accountBalance} />
+        <TradeForm
+          quote={quote}
+          amount={amount}
+          onTradeCurrencyChange={this.handleTradeInput}
+          onTradeButtonClick={this.handleTradeButton}
+        />
       </div>
     )
   }

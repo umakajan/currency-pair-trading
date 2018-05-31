@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 
 import actions from './actions';
 
-import CurrencyPairTrading from '../../components/App';
+import CurrencyPairTrading from './CurrencyPairTrading';
+
+import './styles.scss';
 
 function mapStateToProps(state, ownProps) {
   const { trade } = state;

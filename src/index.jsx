@@ -8,8 +8,6 @@ import rootReducer from './reducers';
 
 import App from './containers/CurrencyPairTrading';
 
-import './styles.scss';
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
