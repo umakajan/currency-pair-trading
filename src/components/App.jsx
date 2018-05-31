@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class App extends React.Component {
+class CurrencyPairTrading extends React.Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +31,7 @@ class App extends React.Component {
    * @returns {Number}
    */
   getQuote(amount) {
-    const { symbol, lastPrice } = this.props;
+    const { lastPrice } = this.props;
 
     return lastPrice && amount / lastPrice;
   }
@@ -117,4 +118,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+CurrencyPairTrading.propTypes = {
+  fetchLastPrice: PropTypes.func.isRequired,
+  symbol: PropTypes.string.isRequired,
+  lastPrice: PropTypes.number.isRequired,
+}
+
+export default CurrencyPairTrading;

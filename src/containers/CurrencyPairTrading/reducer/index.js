@@ -16,7 +16,7 @@ export default function tradeReducer(state = defaultState, action) {
         ...state,
         lastPrice: {
           ...state.lastPrice,
-          [action.symbol]: action.lastPrice,
+          [action.symbol]: action.lastPrice
         },
       }
     }

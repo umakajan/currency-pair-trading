@@ -12,7 +12,8 @@ function mapStateToProps(state, ownProps) {
 
   return {
     isLoading,
-    lastPrice: lastPrice[ownProps.symbol],
+    symbol: ownProps.symbol,
+    lastPrice: lastPrice[ownProps.symbol] || 0,
   };
 }
 
